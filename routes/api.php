@@ -38,3 +38,18 @@ Route::get('/veiculos', [VeiculosController::class, 'index']);
 Route::get('/animais', [AnimaisController::class, 'index']);
 Route::get('/autorizacoes', [AutorizacoesController::class, 'index']);
 Route::get('/documentos', [DocumentosController::class, 'index']);
+
+// Rota para obter dados através do ID
+Route::get('/autorizacoes/{id}', [AutorizacoesController::class, 'show']);
+Route::get('/documentos/{id}', [DocumentosController::class, 'show']);
+Route::get('/moradores/{id}', [MoradoresController::class, 'show']);
+Route::get('/animais/{id}', [AnimaisController::class, 'show']);
+Route::get('/veiculos/{id}', [VeiculosController::class, 'show']);
+
+// Rota Atualizando
+Route::put('/autorizacoes/{id}', [AutorizacoesController::class, 'update']);
+Route::put('/documentos/{id}', [DocumentosController::class, 'update']);
+Route::put('/moradores/{id}', [MoradoresController::class, 'update']);
+Route::put('/animais/{id}', [AnimaisController::class, 'update']);
+Route::put('/veiculos/{id}', [VeiculosController::class, 'update']);
+

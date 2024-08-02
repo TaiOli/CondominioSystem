@@ -17,6 +17,12 @@ import CadSeguranca from './components/cadastro/CadAutorizacoes.vue';
 import ListaMoradores from './components/listas/ListaMoradores.vue';
 import ListaSeguranca from './components/listas/ListaSeguranca.vue';
 import ListaDocumentos from './components/listas/ListaDocumentos.vue';
+// Edição
+import EditAutorizacoes from './components/edicao/EditAutorizacoes.vue';
+import EditDocumentos from './components/edicao/EditDocumentos.vue';
+import EditMoradores from './components/edicao/EditMoradores.vue';
+import EditAnimais from './components/edicao/EditAnimais.vue';
+import EditVeiculos from './components/edicao/EditVeiculos.vue';
 
 // Rotas de navegação
 const router = createRouter({
@@ -38,11 +44,17 @@ const router = createRouter({
         // Tela de Lista de moradores
         { path: '/lista/moradores', component: ListaMoradores },
         // Tela de Lista de moradores
-        { path: '/lista/seguranca', component: ListaSeguranca },
+        { path: '/lista/seguranca', name: 'Seguranca', component: ListaSeguranca },
         // Tela de Lista de moradores
-        { path: '/lista/documentos', component: ListaDocumentos }
-        
-    ]
+        { path: '/lista/documentos', component: ListaDocumentos },
+
+        // Tela de edicao
+        { path: '/edit-autorizacao/:id', name: 'EditAutorizacoes', component: EditAutorizacoes, props: true },
+        { path: '/edit-documento/:id', name: 'EditDocumentos', component: EditDocumentos, props: true },
+        { path: '/edit-morador/:id', name: 'EditMoradores', component: EditMoradores, props: true },
+        { path: '/edit-animais/:id', name: 'EditAnimais', component: EditAnimais, props: true },
+        { path: '/edit-veiculos/:id', name: 'EditVeiculos', component: EditVeiculos, props: true }
+    ]  
 });
 
 const app = createApp(App);

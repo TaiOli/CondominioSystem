@@ -53,4 +53,39 @@ class AutorizacoesController extends Controller
             return response()->json(['message' => 'Ocorreu um erro ao cadastrar a autorização.', 'error' => $e->getMessage()], 500);
         }
     }
+
+    // Retorna os dados do banco
+    public function show($id)
+    {
+        $autorizacao = Autorizacao::find($id);
+
+        if (!$autorizacao) {
+            return response()->json(['message' => 'Autorização não encontrada'], 404);
+        }
+
+        return response()->json($autorizacao);
+    }
+
+    // Atualizacao dos dados
+    public function update(Request $request, $id)
+    {
+        $autorizacao = Autorizacao::find($id);
+    
+        if (!$autorizacao) {
+            return response()->json(['message' => 'Autorização não encontrada'], 404);
+        }
+    
+        // Atualizando a validação
+        $validatedData = $request->validate([
+            'morador_id' => 'required|exists:moradores,id', 
+            'nivel_acesso' => 'required|string|max:50',
+            'visitante' => 'nullable|string|max:50',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'nullable|date|after_or_equal:data_inicio',
+        ]);
+    
+        $autorizacao->update($validatedData);
+    
+        return response()->json($autorizacao);
+    }
 }

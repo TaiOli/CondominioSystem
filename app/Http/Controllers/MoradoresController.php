@@ -53,4 +53,42 @@ class MoradoresController extends Controller
 
         return response()->json(['message' => 'Morador cadastrado com sucesso!'], 201);
     }
+
+    // Retorna os dados do banco
+    public function show($id)
+    {
+        $morador = Morador::find($id);
+
+        if (!$morador) {
+            return response()->json(['message' => 'Morador não encontrado'], 404);
+        }
+
+        return response()->json($morador);
+    }
+
+     // Atualizacao dos dados
+     public function update(Request $request, $id)
+     {
+         $morador = Morador::find($id);
+     
+         if (!$morador) {
+             return response()->json(['message' => 'Morador não encontrado'], 404);
+         }
+     
+         // Atualizando a validação
+         $validatedData = $request->validate([
+              'nome' => 'required|string|max:100',
+              'data_nascimento' => 'nullable|date',
+              'rg' => 'nullable|string|max:20',
+              'cpf' => 'required|string|size:11|unique:moradores,cpf,' . $id,
+              'telefone' => 'nullable|string|max:15',
+              'celular' => 'nullable|string|max:15',
+              'email' => 'nullable|email|max:100',
+              'unidade_id' => 'required|exists:unidades,id',
+         ]);
+     
+         $morador->update($validatedData);
+     
+         return response()->json($morador);
+     }
 }

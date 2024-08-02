@@ -48,4 +48,38 @@ class DocumentosController extends Controller
             return response()->json(['message' => 'Ocorreu um erro ao cadastrar o documento.', 'error' => $e->getMessage()], 500);
         }
     }
+
+    // Retorna os dados do banco
+    public function show($id)
+    {
+        $documento = Documento::find($id);
+
+        if (!$documento) {
+            return response()->json(['message' => 'Autorização não encontrada'], 404);
+        }
+
+        return response()->json($documento);
+    }
+
+    // Atualizacao dos dados
+    public function update(Request $request, $id)
+    {
+        $documento = Documento::find($id);
+    
+        if (!$documento) {
+            return response()->json(['message' => 'Documentos não encontrados'], 404);
+        }
+    
+        // Atualizando a validação
+        $validatedData = $request->validate([
+            'tipo_documento' => 'required|string|max:50',
+            'descricao' => 'nullable|string',
+            'data_emissao' => 'nullable|date',
+            'morador_id' => 'required|exists:moradores,id',  
+        ]);
+    
+        $documento->update($validatedData);
+    
+        return response()->json($documento);
+    }
 }

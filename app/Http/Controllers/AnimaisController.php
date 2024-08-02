@@ -41,4 +41,39 @@ class AnimaisController extends Controller
             return response()->json(['message' => 'Ocorreu um erro ao cadastrar o animal.'], 500);
         }
     }
+
+    // Retorna os dados do banco
+    public function show($id)
+    {
+        $animal = Animal::find($id);
+
+        if (!$animal) {
+            return response()->json(['message' => 'Animal não encontrado'], 404);
+        }
+
+        return response()->json($animal);
+    }
+
+     // Atualizacao dos dados
+     public function update(Request $request, $id)
+     {
+         $animal = Animal::find($id);
+     
+         if (!$animal) {
+             return response()->json(['message' => 'Animal não encontrado'], 404);
+         }
+     
+         // Atualizando a validação
+         $validatedData = $request->validate([
+            'tipo' => 'required|string|max:50',
+            'raca' => 'required|string|max:50',
+            'idade' => 'required|integer|min:0', 
+            'nome' => 'required|string|max:50',
+            'unidade_id' => 'required|exists:unidades,id', 
+         ]);
+     
+         $animal->update($validatedData);
+     
+         return response()->json($animal);
+     }
 }

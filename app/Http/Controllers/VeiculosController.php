@@ -40,9 +40,47 @@ class VeiculosController extends Controller
 
         \Log::info('Validated Data:', $validatedData);
 
-        // Criação do veículo
         Veiculo::create($validatedData);
 
         return response()->json(['message' => 'Veículo cadastrado com sucesso!'], 201);
     }
+
+
+    // Retorna os dados do banco
+    public function show($id)
+    {
+        $veiculo = Veiculo::find($id);
+
+        if (!$veiculo) {
+            return response()->json(['message' => 'Veiculo não encontrado'], 404);
+        }
+
+        return response()->json($veiculo);
+    }
+
+
+     // Atualizacao dos dados
+     public function update(Request $request, $id)
+     {
+         $veiculo = Veiculo::find($id);
+     
+         if (!$veiculo) {
+             return response()->json(['message' => 'Veiculo não encontrado'], 404);
+         }
+     
+         // Atualizando a validação
+         $validatedData = $request->validate([
+            'marca' => 'string|max:50',
+            'modelo' => 'string|max:50',
+            'ano' => 'integer|min:1886|max:' . (date('Y') + 1),
+            'cor' => 'string|max:20',
+            'placa' => 'string|max:10|unique:veiculos,placa,' . $id,
+            'chassi' => 'string|max:30|unique:veiculos,chassi,' . $id,
+            'unidade_id' => 'exists:unidades,id',
+         ]);
+     
+         $veiculo->update($validatedData);
+     
+         return response()->json($veiculo);
+     }
 }

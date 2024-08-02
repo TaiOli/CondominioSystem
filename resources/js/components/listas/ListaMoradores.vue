@@ -21,6 +21,7 @@
             <th>Data de Nascimento</th>
             <th>CPF</th>
             <th>Telefone</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,9 @@
             <td>{{ morador.cpf }}</td>
             <td>{{ morador.telefone }}</td>
             <td>
+              <button class="btn btn-primary btn-sm" @click="editMorador(morador)">
+                Editar
+              </button>
             </td>
           </tr>
         </tbody>
@@ -53,6 +57,7 @@
             <th>Cor</th>
             <th>Placa</th>
             <th>Chassi</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +69,9 @@
             <td>{{ veiculo.placa }}</td>
             <td>{{ veiculo.chassi }}</td>
             <td>
+              <button class="btn btn-primary btn-sm" @click="editVeiculo(veiculo)">
+                Editar
+              </button>
             </td>
           </tr>
         </tbody>
@@ -85,6 +93,7 @@
             <th>Raça</th>
             <th>Idade</th>
             <th>Nome</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -94,6 +103,9 @@
             <td>{{ animal.idade }}</td>
             <td>{{ animal.nome }}</td>
             <td>
+              <button class="btn btn-primary btn-sm" @click="editAnimal(animal)">
+                Editar
+              </button>
             </td>
           </tr>
         </tbody>
@@ -154,8 +166,8 @@ export default {
             console.log('Veículos carregados:', this.veiculos);
           })
           .catch(error => {
-        console.error('Erro ao carregar veículos:', error.response || error.message);
-      });
+            console.error('Erro ao carregar veículos:', error.response || error.message);
+          });
 
         axios.get(`/api/animais?unidade_id=${this.selectedUnidade}`)
           .then((response) => {
@@ -164,8 +176,8 @@ export default {
             console.log('Animais carregados:', this.animais);
           })
           .catch(error => {
-        console.error('Erro ao carregar animais:', error.response || error.message);
-      });
+            console.error('Erro ao carregar animais:', error.response || error.message);
+          });
       } else {
         this.moradores = [];
         this.veiculos = [];
@@ -174,7 +186,16 @@ export default {
         this.noVeiculos = false;
         this.noAnimais = false;
       }
-    },  
+    },
+    editMorador(morador) {
+      this.$router.push({ name: 'EditMoradores', params: { id: morador.id } });
+    },
+    editAnimal(animal) {
+      this.$router.push({ name: 'EditAnimais', params: { id: animal.id } });
+    },
+    editVeiculo(veiculo) {
+      this.$router.push({ name: 'EditVeiculos', params: { id: veiculo.id } });
+    }
   },
   mounted() {
     this.fetchUnidades();
