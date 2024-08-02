@@ -41,6 +41,21 @@
                     </router-link>
                   </li>
                 </ul>
+                <li class="nav-item">
+                    <router-link to="/lista/moradores" class="nav-link">
+                      Gestão Moradores
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/lista/documentos" class="nav-link">
+                      Documentações
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/lista/seguranca" class="nav-link">
+                      Segurança
+                    </router-link>
+                </li>
               </li>
             </ul>
           </div>

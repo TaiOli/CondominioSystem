@@ -15,6 +15,14 @@ class AnimaisController extends Controller
         $this->animal = new Animal();
     }
 
+    // Buscando do banco de dados
+    public function index(Request $request)
+    {
+        $unidadeId = $request->query('unidade_id');
+        $animal = Animal::where('unidade_id', $unidadeId)->get();
+        return response()->json($animal);
+    }
+
     // Inserindo no banco de dados
     public function store(Request $request)
     {

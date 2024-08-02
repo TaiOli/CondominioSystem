@@ -16,6 +16,22 @@ class AutorizacoesController extends Controller
         $this->autorizacao = new Autorizacao();
     }
 
+    // Buscando do banco de dados
+    public function index(Request $request)
+    {
+        $unidadeId = $request->query('unidade_id');
+    
+        if ($unidadeId) {
+            $autorizacoes = Autorizacao::whereHas('morador', function($query) use ($unidadeId) {
+                $query->where('unidade_id', $unidadeId);
+            })->with('morador')->get();
+        } else {
+            $autorizacoes = [];
+        }
+    
+        return response()->json($autorizacoes);
+    }
+
     // Inserindo no banco de dados
     public function store(Request $request)
     {

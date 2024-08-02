@@ -34,3 +34,7 @@ Route::post('/autorizacoes', [AutorizacoesController::class, 'store']);
 // Rotas Listando
 Route::get('/unidades', [UnidadesController::class, 'index']);
 Route::get('/moradores', [MoradoresController::class, 'index']);
+Route::get('/veiculos', [VeiculosController::class, 'index']);
+Route::get('/animais', [AnimaisController::class, 'index']);
+Route::get('/autorizacoes', [AutorizacoesController::class, 'index']);
+Route::get('/documentos', [DocumentosController::class, 'index']);

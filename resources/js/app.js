@@ -13,6 +13,10 @@ import CadVeiculos from './components/cadastro/CadVeiculos.vue';
 import CadAnimais from './components/cadastro/CadAnimais.vue';
 import CadDocumentos from './components/cadastro/CadDocumentos.vue';
 import CadSeguranca from './components/cadastro/CadAutorizacoes.vue';
+// Listas
+import ListaMoradores from './components/listas/ListaMoradores.vue';
+import ListaSeguranca from './components/listas/ListaSeguranca.vue';
+import ListaDocumentos from './components/listas/ListaDocumentos.vue';
 
 // Rotas de navegação
 const router = createRouter({
@@ -30,6 +34,14 @@ const router = createRouter({
         { path: '/cadastro/documentos', component: CadDocumentos },
         // Tela de Cadastro de autorizacoes
         { path: '/cadastro/seguranca', component: CadSeguranca },
+
+        // Tela de Lista de moradores
+        { path: '/lista/moradores', component: ListaMoradores },
+        // Tela de Lista de moradores
+        { path: '/lista/seguranca', component: ListaSeguranca },
+        // Tela de Lista de moradores
+        { path: '/lista/documentos', component: ListaDocumentos }
+        
     ]
 });
 

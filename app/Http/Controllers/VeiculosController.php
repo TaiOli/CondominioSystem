@@ -15,6 +15,15 @@ class VeiculosController extends Controller
         $this->veiculo = new Veiculo();
     }
 
+    // Buscando do banco de dados
+    public function index(Request $request)
+    {
+        $unidadeId = $request->query('unidade_id');
+        $veiculos = Veiculo::where('unidade_id', $unidadeId)->get();
+        
+        return response()->json($veiculos);
+    }
+
     // Inserindo no banco de dados
     public function store(Request $request)
     {

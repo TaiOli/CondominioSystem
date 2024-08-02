@@ -15,6 +15,20 @@ class DocumentosController extends Controller
         $this->documento = new Documento();
     }
 
+    // Buscando do banco de dados
+    public function index(Request $request)
+    {
+        $moradorId = $request->query('morador_id');
+
+        if ($moradorId) {
+            $documentos = Documento::where('morador_id', $moradorId)->get();
+        } else {
+            $documentos = [];
+        }
+
+        return response()->json($documentos);
+    }
+
     // Inserindo no banco de dados
     public function store(Request $request)
     {
